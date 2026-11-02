@@ -1,4 +1,4 @@
-# Mis gastos
+# MonAi
 
 Registro de gastos con IA, de uso personal, inspirado en el estilo de MonAi. HTML, CSS y JavaScript puro (módulos ES), sin dependencias.
 
