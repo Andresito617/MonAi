@@ -28,7 +28,7 @@ jobs:
       - name: Preparar los archivos de la app
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: monai-gastos
 
       - name: Publicar
         id: deployment
