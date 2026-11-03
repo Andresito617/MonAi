@@ -1,0 +1,39 @@
+/* Hojas deslizables: agregar movimiento y configuración */
+.sheet{position:absolute;inset:44px 0 0 0;background:#171717;border-radius:36px 36px 0 0;transform:translateY(110%);transition:transform .3s;z-index:5;display:flex;flex-direction:column;padding:18px 20px calc(20px + env(safe-area-inset-bottom));overflow-y:auto}
+.sheet.open{transform:none}
+.x{align-self:flex-end;width:48px;height:48px;font-size:18px;flex:none}
+#addS .x{margin-bottom:auto}
+.sheet input,.sheet select{width:100%;background:none;border:0;color:var(--tx);font:inherit;outline:0}
+#fdesc,#famt{font-size:34px;font-weight:800;padding:2px 0}
+#fdesc::placeholder,#famt::placeholder{color:#3a3a3a}
+#fd{width:auto;align-self:flex-start;background:var(--pill);border-radius:99px;padding:8px 14px;font-size:16px;margin-bottom:14px;color-scheme:dark}
+.row{display:flex;gap:10px;overflow-x:auto;padding:18px 0;scrollbar-width:none;flex:none}
+.chip{flex:none;border:2px solid #333;background:none;border-radius:99px;padding:14px 20px;font-size:18px;font-weight:700}
+.chip.on{background:var(--pill2)}
+.save{background:var(--pill2);border-radius:20px;padding:18px;font-size:20px;font-weight:700;flex:none}
+#setS h2{font-size:34px;margin:0 0 6px}
+#setS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
+.cl{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:19px}
+.cl small{color:var(--mut);margin-left:auto}.cl button{background:none;color:var(--mut)}
+.addcat{display:flex;gap:8px}
+.addcat input,.addcat select,#key,#model{background:var(--card);border-radius:14px;padding:12px;margin-top:6px}
+.addcat select{width:auto}#cn{flex:1;min-width:0}#ce{width:64px!important;text-align:center}
+.rb{width:100%;text-align:left;background:var(--card);border-radius:18px;padding:18px;font-size:19px;font-weight:700;margin-top:10px}
+.rb.danger{color:var(--red)}
+#cashS h2,#trS h2{font-size:34px;margin:0 0 6px}
+#accountChoiceS h2{font-size:30px;margin:0 0 4px}
+.choice-hint{color:var(--mut);margin:0 0 10px}
+#accountChoiceS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
+.choice-list{display:flex;flex-direction:column;gap:10px}
+.account-choice{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border-radius:18px;padding:16px;text-align:left}
+.account-choice span{font-size:25px}.account-choice b{font-size:18px}.account-choice i{font-size:26px;color:var(--mut);font-style:normal;margin-left:auto}
+#cashS h3,#trS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
+.cash-total{font-size:44px;font-weight:800}
+.cash-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.cash-kind{display:flex;flex-direction:column;gap:8px;background:var(--card);border-radius:18px;padding:14px;min-width:0}
+.cash-kind span{color:var(--mut);font-size:14px}.cash-kind b{font-size:20px;overflow-wrap:anywhere}
+.ac{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:14px;margin-bottom:10px}
+.ac.sel{outline:2px solid #555}.ac .ai{font-size:26px}.ac .nm b{font-size:19px}.ac .am{font-size:17px}
+.mini{background:none;color:var(--mut);padding:6px}
+#trS select,#trS input,#cashS select,#cashS input{background:var(--card);border-radius:14px;padding:12px;margin-top:6px}
+#ae{width:64px!important;text-align:center}#an,#as{flex:1;min-width:0}

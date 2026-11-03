@@ -1,5 +1,6 @@
-# MonAi
-Registro de gastos con IA, de uso personal, inspirado en el estilo de MonAi. HTML, CSS y JavaScript puro (módulos ES), sin dependencias.
+# Mis gastos
+
+Registro de gastos con IA, de uso personal, inspirado en el estilo de MonAi. HTML, CSS y JavaScript puro; la sincronización opcional usa Supabase JS desde CDN.
 
 ## Estructura
 
@@ -8,6 +9,7 @@ monai-gastos/
 ├─ index.html            marcado de la app
 ├─ manifest.json         datos para instalarla como PWA
 ├─ service-worker.js     caché para uso sin conexión
+├─ supabase-setup.sql    tabla y políticas de acceso para sincronización
 ├─ icons/                íconos 192 y 512
 ├─ css/
 │  ├─ base.css           variables, reset, tipografía
@@ -29,9 +31,15 @@ monai-gastos/
 
 ## Cómo correrlo
 
-Abre `index.html` con doble clic y funciona. Los scripts se cargan en orden desde `index.html` (utils, state, parser, ai, voice, ui/home, addSheet, settings, cash, main), por eso no hacen falta módulos ni servidor.
+Abre `index.html` con doble clic y funciona en modo local. La biblioteca de Supabase se carga desde CDN para activar la sincronización.
 
 Para instalarla como app en el celular y tener uso sin conexión, sírvela por HTTPS o `localhost` (`npx serve .` o `python3 -m http.server 8000`): el service worker no se registra al abrir el archivo directamente.
+
+## Sincronización entre dispositivos
+
+La sincronización es opcional y usa Supabase. Crea un proyecto, ejecuta `supabase-setup.sql` en SQL Editor y copia la URL del proyecto junto con su clave publicable en Configuración. Nunca uses la `service_role` key en la app. Crea la cuenta desde el dispositivo que tenga los datos más completos; inicia sesión en los demás con el mismo correo y contraseña. Si Supabase exige confirmar el correo, confirma desde el mensaje antes de iniciar sesión.
+
+Los movimientos, cuentas, transferencias y categorías se guardan en la tabla protegida `monai_user_data`. La clave de Gemini y la preferencia de modelo siguen siendo locales en cada dispositivo. En el plan gratuito de Supabase, los proyectos pueden pausarse tras una semana de inactividad; vuelve a activarlo desde Supabase si deja de responder.
 
 Si agregas un archivo JS nuevo, añade su `<script>` en `index.html`, antes de `main.js`.
 
