@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#121212">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Mis gastos</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sheets.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <button class="pill" id="scopeBtn">💰 Mi dinero</button>
+    <div class="hr"><button class="round" id="todayBtn">📅</button><button class="round" id="setBtn">⚙️</button></div>
+  </header>
+  <input id="q" placeholder="Buscar en todo el historial">
+  <div id="periods"></div>
+  <div id="total"></div>
+  <div id="seg"></div>
+  <div id="cats"></div>
+  <div id="list"></div>
+  <div id="bar">
+    <button class="round" id="addBtn">＋</button>
+    <div class="p2"><button id="chatBtn">💬</button><button id="sBtn">🔍</button></div>
+    <button class="round" id="mic">🎙️</button>
+  </div>
+
+  <div class="sheet" id="addS">
+    <button class="round x" data-close>✕</button>
+    <input type="date" id="fd">
+    <input id="fdesc" placeholder="Descripción" autocomplete="off">
+    <input id="famt" placeholder="Monto" inputmode="decimal" autocomplete="off">
+    <div class="row" id="facc"></div>
+    <div class="row" id="fcats"></div>
+    <button class="save" id="saveBtn">✓ Guardar</button>
+  </div>
+
+  <div class="sheet" id="accountChoiceS">
+    <button class="round x" data-close>✕</button>
+    <h2>¿Dónde lo agregamos?</h2>
+    <p class="choice-hint">Elige dónde está el dinero de este movimiento.</p>
+    <div id="accountChoices"></div>
+  </div>
+
+  <div class="sheet" id="setS">
+    <button class="round x" data-close>✕</button>
+    <h2>Configuración</h2>
+    <h3>Categorías</h3>
+    <div id="catList"></div>
+    <div class="addcat"><input id="ce" placeholder="🙂" maxlength="4"><input id="cn" placeholder="Nueva categoría"><select id="ct"><option value="out">Gasto</option><option value="in">Ingreso</option></select><button class="round" id="cadd" style="width:48px;height:48px;margin-top:6px">＋</button></div>
+    <h3>Sincronizar celular y PC</h3>
+    <p class="sync-note">Tus movimientos se guardarán en Supabase para compartirlos entre dispositivos. Usa el mismo correo en ambos.</p>
+    <input id="syncUrl" type="url" placeholder="URL del proyecto Supabase">
+    <input id="syncKey" type="password" placeholder="Clave publicable de Supabase (sb_publishable_…)">
+    <input id="syncEmail" type="email" placeholder="Correo de sincronización" autocomplete="email">
+    <input id="syncPassword" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <div class="sync-actions"><button class="rb" id="syncLogin">Iniciar sesión</button><button class="rb" id="syncSignup">Crear cuenta</button></div>
+    <p id="syncStatus" class="sync-status">Sin sincronización configurada</p>
+    <button class="rb" id="syncLogout" hidden>Cerrar sesión de sincronización</button>
+    <h3>IA (Gemini)</h3>
+    <input id="key" type="password" placeholder="API key de Gemini">
+    <input id="model" placeholder="Modelo">
+    <h3>Datos</h3>
+    <button class="rb" id="exp">📊 Exportar CSV</button>
+    <button class="rb danger" id="wipe">🗑️ Borrar todo</button>
+  </div>
+  <div class="sheet" id="cashS">
+    <button class="round x" data-close>✕</button>
+    <h2>Mi dinero</h2>
+    <div class="cash-total" id="cashTotal">$ 0</div>
+    <div class="cash-breakdown" id="cashBreakdown"></div>
+    <h3>Cuentas (toca una para filtrar)</h3>
+    <div id="accList"></div>
+    <button class="rb" id="trOpen">↔ Transferir entre cuentas</button>
+    <h3>Nueva cuenta</h3>
+    <div class="addcat"><input id="ae" placeholder="🏦" maxlength="4"><input id="an" placeholder="Nombre (ej. Nequi)"></div>
+    <div class="addcat"><select id="at"><option value="bank">Banco / digital</option><option value="cash">Efectivo</option></select><input id="as" placeholder="Saldo inicial" inputmode="decimal"><button class="round" id="aadd" style="width:48px;height:48px;margin-top:6px">＋</button></div>
+    <h3>Últimas transferencias</h3>
+    <div id="trList"></div>
+  </div>
+
+  <div class="sheet" id="trS">
+    <button class="round x" data-close>✕</button>
+    <h2>Transferir</h2>
+    <h3>Desde</h3><select id="tf"></select>
+    <h3>Hacia</h3><select id="tt"></select>
+    <h3>Monto</h3><input id="tm" placeholder="Ej. 100 mil" inputmode="decimal" autocomplete="off">
+    <h3>Fecha</h3><input type="date" id="tdate" style="color-scheme:dark">
+    <button class="save" id="trBtn" style="margin-top:22px">✓ Transferir</button>
+  </div>
+</div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/utils.js"></script>
+<script src="js/state.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/ui/home.js"></script>
+<script src="js/ui/addSheet.js"></script>
+<script src="js/ui/settings.js"></script>
+<script src="js/ui/cash.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
