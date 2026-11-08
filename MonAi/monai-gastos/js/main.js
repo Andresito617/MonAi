@@ -9,4 +9,5 @@ $('#mic').onclick = () => dictate(async texto => {
 });
 
 render();
+initSync();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(() => {});

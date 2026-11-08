@@ -53,6 +53,15 @@
     <h3>Categorías</h3>
     <div id="catList"></div>
     <div class="addcat"><input id="ce" placeholder="🙂" maxlength="4"><input id="cn" placeholder="Nueva categoría"><select id="ct"><option value="out">Gasto</option><option value="in">Ingreso</option></select><button class="round" id="cadd" style="width:48px;height:48px;margin-top:6px">＋</button></div>
+    <h3>Sincronizar celular y PC</h3>
+    <p class="sync-note">Tus movimientos se guardarán en Supabase para compartirlos entre dispositivos. Usa el mismo correo en ambos.</p>
+    <input id="syncUrl" type="url" placeholder="URL del proyecto Supabase">
+    <input id="syncKey" type="password" placeholder="Clave publicable de Supabase (sb_publishable_…)">
+    <input id="syncEmail" type="email" placeholder="Correo de sincronización" autocomplete="email">
+    <input id="syncPassword" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <div class="sync-actions"><button class="rb" id="syncLogin">Iniciar sesión</button><button class="rb" id="syncSignup">Crear cuenta</button></div>
+    <p id="syncStatus" class="sync-status">Sin sincronización configurada</p>
+    <button class="rb" id="syncLogout" hidden>Cerrar sesión de sincronización</button>
     <h3>IA (Gemini)</h3>
     <input id="key" type="password" placeholder="API key de Gemini">
     <input id="model" placeholder="Modelo">
@@ -86,8 +95,10 @@
   </div>
 </div>
 <div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/utils.js"></script>
 <script src="js/state.js"></script>
+<script src="js/sync.js"></script>
 <script src="js/parser.js"></script>
 <script src="js/ai.js"></script>
 <script src="js/voice.js"></script>

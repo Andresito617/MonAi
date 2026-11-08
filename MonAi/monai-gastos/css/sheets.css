@@ -1,39 +1,343 @@
-/* Hojas deslizables: agregar movimiento y configuración */
-.sheet{position:absolute;inset:44px 0 0 0;background:#171717;border-radius:36px 36px 0 0;transform:translateY(110%);transition:transform .3s;z-index:5;display:flex;flex-direction:column;padding:18px 20px calc(20px + env(safe-area-inset-bottom));overflow-y:auto}
-.sheet.open{transform:none}
-.x{align-self:flex-end;width:48px;height:48px;font-size:18px;flex:none}
-#addS .x{margin-bottom:auto}
-.sheet input,.sheet select{width:100%;background:none;border:0;color:var(--tx);font:inherit;outline:0}
-#fdesc,#famt{font-size:34px;font-weight:800;padding:2px 0}
-#fdesc::placeholder,#famt::placeholder{color:#3a3a3a}
-#fd{width:auto;align-self:flex-start;background:var(--pill);border-radius:99px;padding:8px 14px;font-size:16px;margin-bottom:14px;color-scheme:dark}
-.row{display:flex;gap:10px;overflow-x:auto;padding:18px 0;scrollbar-width:none;flex:none}
-.chip{flex:none;border:2px solid #333;background:none;border-radius:99px;padding:14px 20px;font-size:18px;font-weight:700}
-.chip.on{background:var(--pill2)}
-.save{background:var(--pill2);border-radius:20px;padding:18px;font-size:20px;font-weight:700;flex:none}
-#setS h2{font-size:34px;margin:0 0 6px}
-#setS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
-.cl{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:19px}
-.cl small{color:var(--mut);margin-left:auto}.cl button{background:none;color:var(--mut)}
-.addcat{display:flex;gap:8px}
-.addcat input,.addcat select,#key,#model{background:var(--card);border-radius:14px;padding:12px;margin-top:6px}
-.addcat select{width:auto}#cn{flex:1;min-width:0}#ce{width:64px!important;text-align:center}
-.rb{width:100%;text-align:left;background:var(--card);border-radius:18px;padding:18px;font-size:19px;font-weight:700;margin-top:10px}
-.rb.danger{color:var(--red)}
-#cashS h2,#trS h2{font-size:34px;margin:0 0 6px}
-#accountChoiceS h2{font-size:30px;margin:0 0 4px}
-.choice-hint{color:var(--mut);margin:0 0 10px}
-#accountChoiceS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
-.choice-list{display:flex;flex-direction:column;gap:10px}
-.account-choice{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border-radius:18px;padding:16px;text-align:left}
-.account-choice span{font-size:25px}.account-choice b{font-size:18px}.account-choice i{font-size:26px;color:var(--mut);font-style:normal;margin-left:auto}
-#cashS h3,#trS h3{color:var(--mut);font-size:15px;margin:22px 0 8px;font-weight:600}
-.cash-total{font-size:44px;font-weight:800}
-.cash-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.cash-kind{display:flex;flex-direction:column;gap:8px;background:var(--card);border-radius:18px;padding:14px;min-width:0}
-.cash-kind span{color:var(--mut);font-size:14px}.cash-kind b{font-size:20px;overflow-wrap:anywhere}
-.ac{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:14px;margin-bottom:10px}
-.ac.sel{outline:2px solid #555}.ac .ai{font-size:26px}.ac .nm b{font-size:19px}.ac .am{font-size:17px}
-.mini{background:none;color:var(--mut);padding:6px}
-#trS select,#trS input,#cashS select,#cashS input{background:var(--card);border-radius:14px;padding:12px;margin-top:6px}
-#ae{width:64px!important;text-align:center}#an,#as{flex:1;min-width:0}
+/* Hojas deslizables: agregar movimiento, cuentas y configuración */
+.sheet {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  inset: 44px 0 0;
+  overflow-y: auto;
+  padding: 18px 20px calc(20px + env(safe-area-inset-bottom));
+  transform: translateY(110%);
+  border-radius: 36px 36px 0 0;
+  background: #171717;
+  transition: transform 0.3s;
+}
+
+.sheet.open {
+  transform: none;
+}
+
+.x {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  align-self: flex-end;
+  font-size: 18px;
+}
+
+#addS .x {
+  margin-bottom: auto;
+}
+
+.sheet input,
+.sheet select {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--tx);
+  font: inherit;
+}
+
+#fdesc,
+#famt {
+  padding: 2px 0;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+#fdesc::placeholder,
+#famt::placeholder {
+  color: #3a3a3a;
+}
+
+#fd {
+  width: auto;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  background: var(--pill);
+  color-scheme: dark;
+  font-size: 16px;
+}
+
+.row {
+  display: flex;
+  flex: none;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 18px 0;
+  scrollbar-width: none;
+}
+
+.chip {
+  flex: none;
+  padding: 14px 20px;
+  border: 2px solid #333;
+  border-radius: 99px;
+  background: none;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.chip.on {
+  background: var(--pill2);
+}
+
+.save {
+  flex: none;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--pill2);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#setS h2,
+#cashS h2,
+#trS h2 {
+  margin: 0 0 6px;
+  font-size: 34px;
+}
+
+#accountChoiceS h2 {
+  margin: 0 0 4px;
+  font-size: 30px;
+}
+
+#setS h3,
+#cashS h3,
+#trS h3,
+#accountChoiceS h3 {
+  margin: 22px 0 8px;
+  color: var(--mut);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.choice-hint {
+  margin: 0 0 10px;
+  color: var(--mut);
+}
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.account-choice {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--card);
+  text-align: left;
+}
+
+.account-choice span {
+  font-size: 25px;
+}
+
+.account-choice b {
+  font-size: 18px;
+}
+
+.account-choice i {
+  margin-left: auto;
+  color: var(--mut);
+  font-size: 26px;
+  font-style: normal;
+}
+
+.cl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 19px;
+}
+
+.cl small {
+  margin-left: auto;
+  color: var(--mut);
+}
+
+.cl button {
+  background: none;
+  color: var(--mut);
+}
+
+.addcat {
+  display: flex;
+  gap: 8px;
+}
+
+.addcat input,
+.addcat select,
+#key,
+#model {
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.addcat select {
+  width: auto;
+}
+
+#cn {
+  min-width: 0;
+  flex: 1;
+}
+
+#ce {
+  width: 64px !important;
+  text-align: center;
+}
+
+.rb {
+  width: 100%;
+  margin-top: 10px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--card);
+  font-size: 19px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.rb.danger {
+  color: var(--red);
+}
+
+.sync-note {
+  margin: 0 0 8px;
+  color: var(--mut);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+#setS #syncUrl,
+#setS #syncKey,
+#setS #syncEmail,
+#setS #syncPassword {
+  flex: none;
+  margin-top: 8px;
+  padding: 13px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+.sync-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.sync-actions .rb {
+  margin-top: 10px;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.sync-status {
+  margin: 12px 0 0;
+  color: var(--mut);
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.sync-status.connected {
+  color: var(--grn);
+}
+
+.cash-total {
+  font-size: 44px;
+  font-weight: 800;
+}
+
+.cash-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cash-kind {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 18px;
+  background: var(--card);
+}
+
+.cash-kind span {
+  color: var(--mut);
+  font-size: 14px;
+}
+
+.cash-kind b {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.ac {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 14px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.ac.sel {
+  outline: 2px solid #555;
+}
+
+.ac .ai {
+  font-size: 26px;
+}
+
+.ac .nm b {
+  font-size: 19px;
+}
+
+.ac .am {
+  font-size: 17px;
+}
+
+.mini {
+  padding: 6px;
+  background: none;
+  color: var(--mut);
+}
+
+#trS select,
+#trS input,
+#cashS select,
+#cashS input {
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--card);
+}
+
+#ae {
+  width: 64px !important;
+  text-align: center;
+}
+
+#an,
+#as {
+  min-width: 0;
+  flex: 1;
+}

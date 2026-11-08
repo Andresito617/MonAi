@@ -1,5 +1,6 @@
 // Estado de la app + persistencia en localStorage
 const KEY = 'monai-gastos-v1';
+let scheduleCloudSync = () => {};
 
 const defaults = () => ({
   tx: [], tr: [], key: '', model: 'gemini-flash-latest',
@@ -20,7 +21,10 @@ function load() {
 }
 
 const S = load();
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const save = () => {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  scheduleCloudSync();
+};
 
 const now = new Date();
 const V = { m: now.getMonth(), y: now.getFullYear(), t: 'out', cat: null, q: '', acc: null };  // vista (acc = filtro de cuenta)

@@ -1,9 +1,9 @@
 // Sube la versión cuando cambies archivos para forzar la actualización del caché
-const VERSION = 'gastos-v4';
+const VERSION = 'gastos-v5';
 const FILES = ['./', './index.html', './manifest.json',
   './css/base.css', './css/components.css', './css/sheets.css',
   './js/main.js', './js/utils.js', './js/state.js', './js/parser.js', './js/ai.js', './js/voice.js',
-  './js/ui/home.js', './js/ui/addSheet.js', './js/ui/settings.js', './js/ui/cash.js',
+  './js/sync.js', './js/ui/home.js', './js/ui/addSheet.js', './js/ui/settings.js', './js/ui/cash.js',
   './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES))); self.skipWaiting(); });
